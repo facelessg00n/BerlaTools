@@ -1,6 +1,6 @@
 # BerlaTools
 
-## Tools to make analysis of BERLA data easier.
+## Tools to simplify analysis of BERLA iVe data.
 Work in progress.
 Python tools to analyse data from Berla iVe extracts in CSV format.
 #
@@ -26,7 +26,6 @@ https://github.com/tqdm/tqdm
 https://networkx.github.io
 
 `pip3 install networkx`
-
 
 
 #

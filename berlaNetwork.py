@@ -94,7 +94,7 @@ nx.draw_networkx_nodes(
 )
 
 nx.draw_networkx_nodes(
-    g, layout, nodelist=phoneNumbers, node_color="#cccccc", node_size=50, alpha=0.5
+    g, layout, nodelist=phoneNumbers, node_color="#79787a", node_size=50, alpha=0.5
 )
 
 common_numbers = [pNumber for pNumber in phoneNumbers if g.degree(pNumber) > 1]
@@ -111,7 +111,7 @@ node_labels = dict(zip(devices, devices))
 node_lables2 = dict(zip(common_numbers, common_numbers))
 
 # draw lables on Device and common number nodes
-nx.draw_networkx_labels(g, layout, labels=node_labels)
+nx.draw_networkx_labels(g, layout, labels=node_labels, font_weight="bold")
 nx.draw_networkx_labels(g, layout, labels=node_lables2, font_size=8)
 
 plt.title("Linked Devices")
