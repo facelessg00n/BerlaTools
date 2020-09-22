@@ -1,14 +1,84 @@
+"""
+facelessg00n 2020
+Made in Australia
+
+Relational analysis tool for files output by Berla iVe
+Determines if phone numbers are common between devices allowing relationships between devices to be quickly analysed.
+
+"""
+
+import os
+import tqdm
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 
 
+# ----Demo Mode----
+# Loads a sample dataset for testing.
+demo_mode = True
+demo_file = "Contact1.csv"
+
+
 # -----Load data-----
-df = pd.read_csv("Contact1.csv")
+if demo_mode:
+    df = pd.read_csv(demo_file)
+
+else:
+    # --- Import Files----
+    fileList = os.listdir(os.getcwd())
+
+    for x in tqdm.tqdm(fileList, desc="Loading files"):
+        if x.endswith("Contact.csv"):
+            contactPD = pd.read_csv(x)
+
+        elif x.endswith("Attached Device.csv"):
+            devicePD = pd.read_csv(x)
+
+        elif x.endswith("Call Log.csv"):
+            callLogPD = pd.read_csv(x)
+
+        elif x.endswith("SMS.csv"):
+            smsPD = pd.read_csv(x)
+
+        else:
+            pass
+
+    try:
+        contactConvert = pd.merge(
+            devicePD,
+            contactPD,
+            left_on=["UniqueNumber"],
+            right_on=["DeviceIdentifier"],
+            how="inner",
+        )
+        contactConvert = contactConvert[
+            [
+                "UniqueString_x",
+                "DeviceName",
+                "DeviceIdentifier",
+                "DeviceType",
+                "Manufacturer",
+                "Model",
+                "UniqueString_y",
+                "FirstName",
+                "LastName",
+                "Company",
+                "PhoneNumber",
+                "WorkNumber",
+                "HomeNumber",
+                "MobileNumber",
+                "Email",
+            ]
+        ]
+        df = contactConvert
+    except:
+        pass
+
 
 # --- Create lists of unique entities.
 devices = list(df.DeviceIdentifier.unique())
-phoneNumber = list(df.PhoneNumber.unique())
+phoneNumbers = list(df.PhoneNumber.unique())
 
 # ---- Draw relationship chart----
 g = nx.from_pandas_edgelist(df, source="DeviceIdentifier", target="PhoneNumber")
@@ -24,10 +94,10 @@ nx.draw_networkx_nodes(
 )
 
 nx.draw_networkx_nodes(
-    g, layout, nodelist=phoneNumber, node_color="#cccccc", node_size=50, alpha=0.5
+    g, layout, nodelist=phoneNumbers, node_color="#cccccc", node_size=50, alpha=0.5
 )
 
-common_numbers = [pNumber for pNumber in phoneNumber if g.degree(pNumber) > 1]
+common_numbers = [pNumber for pNumber in phoneNumbers if g.degree(pNumber) > 1]
 nx.draw_networkx_nodes(
     g, layout, nodelist=common_numbers, node_color="orange", node_size=100
 )
@@ -46,5 +116,5 @@ nx.draw_networkx_labels(g, layout, labels=node_lables2, font_size=8)
 
 plt.title("Linked Devices")
 print(nx.info(g))
-plt.savefig("output_0.png", format="png", dpi=1200)
+# plt.savefig("output_0.png", format="png", dpi=1200)
 plt.show()
