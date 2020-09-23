@@ -11,7 +11,7 @@ Python tools to analyse data from Berla iVe extracts in CSV format.
 #
 ## Dependencies
 Built and tested on python 3.8 but other versions of 3 should be fine. 
-#### Requires PANDAS and TQDM to be installed.
+#### Requires **PANDAS** and **TQDM** to be installed.
 
 https://pandas.pydata.org
 
@@ -21,11 +21,15 @@ https://github.com/tqdm/tqdm
 
 `pip3 install tqdm`
 
-### berlaNetwork also requires networkX
+### **berlaNetwork** also requires **networkX** and **Matplotlib**
 
 https://networkx.github.io
 
 `pip3 install networkx`
+
+https://matplotlib.org
+
+`pip3 install matplotlib`
 
 
 #

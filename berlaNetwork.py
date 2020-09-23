@@ -17,9 +17,9 @@ import pandas as pd
 
 # ------------------------Settings---------------------------------------------
 # Demo Mode
-# Loads a sample dataset for testing.
+# Loads the sample dataset for testing.
 demo_mode = True
-demo_file = "Contact1.csv"
+demo_file = "samples/Contact1.csv"
 
 # ---- Do we want to filter out common numbers
 filters_on = True
