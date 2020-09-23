@@ -4,9 +4,9 @@
 Work in progress.
 Python tools to analyse data from Berla iVe extracts in CSV format.
 #
-1. ### **berlaJoin** - brings in device friendly name and details to contacts, SMS and call CSV's so you dont have to go by MAC addresses etc. Also normalises timestamps allowing easier analysis.
+1. ### **berlaJoin** - brings in device friendly name and details to contacts, SMS and call CSV's so you dont have to look up MAC addresses etc. Also normalises timestamps allowing easier analysis with other software.
 
-2. ### **berlaNetwork** - Work in progress. Utilises networkx and pandas to analyse connon numbers between paired devices and generate a visualisation.
+2. ### **berlaNetwork** - Work in progress. Utilises networkx and pandas to analyse common numbers between paired devices and generate a visualisation.
 ![Sample](samples/sample.png)
 #
 ## Dependencies
