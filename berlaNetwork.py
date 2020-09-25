@@ -28,7 +28,7 @@ filters_on = True
 save_image = False
 
 # Draw clean chart with only common entities
-simple_chart = True
+simple_chart = False
 
 
 # Data to ignore
@@ -55,6 +55,7 @@ ignoreNumbers = [
 # -----------------------Load data--------------------------------------------
 if demo_mode:
     df = pd.read_csv(demo_file)
+    contactConvert = df
 
 else:
     # --- Import Files----
@@ -104,24 +105,22 @@ else:
             ]
         ]
         df = contactConvert
-        # if Phone number field is blank bring in number from Mobile Number or home number column
-        contactConvert.loc[
-            contactConvert["PhoneNumber"].isnull(), "PhoneNumber"
-        ] = contactConvert["MobileNumber"]
-        contactConvert.loc[
-            contactConvert["PhoneNumber"].isnull(), "PhoneNumber"
-        ] = contactConvert["HomeNumber"]
-        # Remove blank rows
-        contactConvert.dropna(subset=["PhoneNumber"], inplace=True)
-        # if device name is missing use device identifier.
-        contactConvert.loc[
-            contactConvert["DeviceName"].isnull(), "DeviceName"
-        ] = contactConvert["DeviceIdentifier"]
-        # print(df)
 
     except:
         pass
 
+
+def fixBlanks(dataFrame):
+    # if Phone number field is blank bring in number from Mobile Number or home number column
+    df.loc[df["PhoneNumber"].isnull(), "PhoneNumber"] = df["MobileNumber"]
+    df.loc[df["PhoneNumber"].isnull(), "PhoneNumber"] = df["HomeNumber"]
+    # Remove blank rows
+    df.dropna(subset=["PhoneNumber"], inplace=True)
+    # if device name is missing use device identifier.
+    df.loc[df["DeviceName"].isnull(), "DeviceName"] = df["DeviceIdentifier"]
+
+
+fixBlanks(df)
 
 # ---- Filter out common numbers to reduce false positives
 if filters_on:
@@ -134,6 +133,8 @@ devices = list(df.DeviceName.unique())
 phoneNumbers = list(df.PhoneNumber.unique())
 
 print("Drawing chart")
+
+# print(df)
 # -----------------------Draw relationship chart-----------------------------
 g = nx.from_pandas_edgelist(df, source="DeviceName", target="PhoneNumber")
 common_numbers = [pNumber for pNumber in phoneNumbers if g.degree(pNumber) > 1]
