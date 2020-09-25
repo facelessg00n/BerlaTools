@@ -111,7 +111,7 @@ else:
                 "Email",
             ]
         ]
-        df = contactConvert
+        
         # if Phone number field is blank bring in number from Mobile Number or home number column
         contactConvert.loc[
             contactConvert["PhoneNumber"].isnull(), "PhoneNumber"
@@ -125,6 +125,7 @@ else:
         contactConvert.loc[
             contactConvert["DeviceName"].isnull(), "DeviceName"
         ] = contactConvert["DeviceIdentifier"]
+        df = contactConvert
         # print(df)
 
     except:
