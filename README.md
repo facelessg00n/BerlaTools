@@ -38,3 +38,6 @@ Place the python file is the same direcotry as CSV files to be analysed.
 Then run with run with `python3 berlaJoin.py`  or `python3 berlaNetwork.py`
 Converted files will be output to the same directory.\
 As always you must verify the results.
+
+### Known issues. 
+If phone numbers are populates in all fields, i.e. PhoneNumber, MobileNumber etc. only the number from PhoneNumber is currently plotted.
