@@ -55,6 +55,14 @@ ignoreNumbers = [
 # -----------------------Load data--------------------------------------------
 if demo_mode:
     df = pd.read_csv(demo_file)
+    # if Phone number field is blank bring in number from Mobile Number or home number column
+    df.loc[df["PhoneNumber"].isnull(), "PhoneNumber"] = df["MobileNumber"]
+    df.loc[df["PhoneNumber"].isnull(), "PhoneNumber"] = df["HomeNumber"]
+    # Remove blank rows
+    df.dropna(subset=["PhoneNumber"], inplace=True)
+    # if device name is missing use device identifier.
+    df.loc[df["DeviceName"].isnull(), "DeviceName"] = df["DeviceIdentifier"]
+
 
 else:
     # --- Import Files----
