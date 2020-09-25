@@ -7,7 +7,7 @@ Determines if phone numbers are common between devices allowing relationships be
 
 Formatted with Black
 """
-# TODO - Placeholder
+# TODO - Clean up phone numbers for better matching. i.e country codes etc.
 
 import os
 import tqdm
@@ -28,12 +28,28 @@ filters_on = True
 save_image = False
 
 # Draw clean chart with only common entities
-simple_chart = False
+simple_chart = True
 
 
 # Data to ignore
 # Common phone numbers
-ignoreNumbers = [101, 000, 1234, 1800737732, 1800551800, 911, 1223, 124937]
+ignoreNumbers = [
+    "101",
+    "000",
+    "1234",
+    "1800737732",
+    "1800551800",
+    "911",
+    "1223",
+    "124937",
+    "555",
+    "321",
+    "",
+    "#101#",
+    "555",
+    "321",
+    "NaN",
+]
 
 
 # -----------------------Load data--------------------------------------------
@@ -88,6 +104,21 @@ else:
             ]
         ]
         df = contactConvert
+        # if Phone number field is blank bring in number from Mobile Number or home number column
+        contactConvert.loc[
+            contactConvert["PhoneNumber"].isnull(), "PhoneNumber"
+        ] = contactConvert["MobileNumber"]
+        contactConvert.loc[
+            contactConvert["PhoneNumber"].isnull(), "PhoneNumber"
+        ] = contactConvert["HomeNumber"]
+        # Remove blank rows
+        contactConvert.dropna(subset=["PhoneNumber"], inplace=True)
+        # if device name is missing use device identifier.
+        contactConvert.loc[
+            contactConvert["DeviceName"].isnull(), "DeviceName"
+        ] = contactConvert["DeviceIdentifier"]
+        # print(df)
+
     except:
         pass
 
@@ -99,21 +130,22 @@ if filters_on:
 
 
 # --- Create lists of unique entities.
-devices = list(df.DeviceIdentifier.unique())
+devices = list(df.DeviceName.unique())
 phoneNumbers = list(df.PhoneNumber.unique())
 
-
+print("Drawing chart")
 # -----------------------Draw relationship chart-----------------------------
-g = nx.from_pandas_edgelist(df, source="DeviceIdentifier", target="PhoneNumber")
+g = nx.from_pandas_edgelist(df, source="DeviceName", target="PhoneNumber")
 common_numbers = [pNumber for pNumber in phoneNumbers if g.degree(pNumber) > 1]
 # Extract connected numbers for simple chart
 filtered_frame2 = df.PhoneNumber.isin(common_numbers)
 df1 = df[filtered_frame2]
+# contactConvert.to_csv("frame1.csv")
 
 
 if not simple_chart:
     contact_size = [g.degree(device) * 10 for device in devices]
-    layout = nx.spring_layout(g, iterations=200)
+    layout = nx.spring_layout(g, iterations=20, scale=0.2)
     plt.figure(figsize=(24, 12), facecolor="whitesmoke", tight_layout=True)
 
     # Draw the device nodes
@@ -165,15 +197,17 @@ if not simple_chart:
 # TODO Could this be a function ?
 # --------------------------------------------------------------------------------------
 if simple_chart:
+    gg = nx.from_pandas_edgelist(df1, source="DeviceName", target="PhoneNumber")
+    # make new device list from filtered frame to prevent errors when extra devices found.
+    devices = df1["DeviceName"].tolist()
 
-    gg = nx.from_pandas_edgelist(df1, source="DeviceIdentifier", target="PhoneNumber")
-    print(df1)
-
-    contact_size = [gg.degree(device) * 800 for device in devices]
-    layout = nx.spring_layout(gg, iterations=200)
+    # contact_size = [gg.degree(device) * 10 for device in devices]
+    contact_size = 800
+    layout = nx.spring_layout(gg, iterations=20)
     plt.figure(figsize=(24, 12), facecolor="white", tight_layout=True)
 
     # Draw the device nodes
+
     nx.draw_networkx_nodes(
         gg,
         layout,
@@ -182,12 +216,13 @@ if simple_chart:
         node_color="lightblue",
     )
 
-    # Draw nodes for numbers common beyween devices
+    # Draw nodes for numbers common between devices
     nx.draw_networkx_nodes(
         gg, layout, nodelist=common_numbers, node_color="orange", node_size=100
     )
 
     # Draw links
+
     nx.draw_networkx_edges(gg, layout, width=1, edge_color="#cccccc", alpha=0.7)
 
     # Create dict pairs for the labels
@@ -207,3 +242,4 @@ if simple_chart:
         fontvariant="small-caps",
     )
     plt.show()
+    print("Finalised and closing")
