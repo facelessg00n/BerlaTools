@@ -46,3 +46,4 @@ As always you must verify the results.
 
 ## Known issues. 
 If phone numbers are populated in all fields, i.e. PhoneNumber, MobileNumber etc. only the number from PhoneNumber is currently plotted.
+Phone numbers will not currently match if they are stored differently in other devices, i.e with / without country codes.
