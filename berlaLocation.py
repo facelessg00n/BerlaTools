@@ -63,7 +63,7 @@ try:
         ]
     ]
     # Generate second dataframe with only points with time data
-    trackpointTimePD = trackpointPD
+    trackpointTimePD = trackpointPD.copy()
     trackpointTimePD.dropna(subset=["DateTime"], inplace=True)
 
 except NameError:
@@ -84,7 +84,7 @@ try:
         format="%m/%d/%Y %I:%M:%S.%f %p",
     )
     # Generate second dataframe with only points with time data
-    eventTimePD = eventPD
+    eventTimePD = eventPD.copy()
     eventTimePD.dropna(subset=["DateTime"], inplace=True)
 
 
