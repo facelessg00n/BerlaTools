@@ -1,12 +1,12 @@
 # BerlaTools
 
 ## Tools to simplify analysis of BERLA iVe data.
-Work in progress.
+Work in progress.\
 Python tools to analyse data from Berla iVe extracts in CSV format.
 #
 1. ### **berlaJoin** - brings in device friendly name and details to contacts, SMS and call CSV's so you dont have to look up MAC addresses etc. Also normalises timestamps allowing easier analysis with other software.
 
-2. ### **berlaNetwork** - Work in progress. Utilises networkx and pandas to analyse common numbers between paired devices and generate a visualisation.
+3. ### **berlaNetwork** - Work in progress. Utilises networkx and pandas to analyse common numbers between paired devices and generate a visualisation.
 ![Sample](samples/sample.png)
 #
 ## Dependencies
@@ -35,9 +35,14 @@ https://matplotlib.org
 #
 ## Usage
 Place the python file is the same direcotry as CSV files to be analysed.
-Then run with run with `python3 berlaJoin.py`  or `python3 berlaNetwork.py`
+berlaNetwork with default to loading a sample dataset from /samples/Contact1.csv to ensure networkx and matplotlib are working correctly. Once it is working open the file in an editor and modify the line in the file to read `demo_mode = False`
+
+Then run with run with `python3 berlaJoin.py` , `python3 berlaNetwork.py` or `python3 berlaLocation.py`.
 Converted files will be output to the same directory.\
 As always you must verify the results.
 
-### Known issues. 
-If phone numbers are populates in all fields, i.e. PhoneNumber, MobileNumber etc. only the number from PhoneNumber is currently plotted.
+
+
+## Known issues. 
+If phone numbers are populated in all fields, i.e. PhoneNumber, MobileNumber etc. only the number from PhoneNumber is currently plotted.
+Phone numbers will not currently match if they are stored differently in other devices, i.e with / without country codes.
