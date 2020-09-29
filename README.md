@@ -35,7 +35,8 @@ https://matplotlib.org
 #
 ## Usage
 Place the python file is the same direcotry as CSV files to be analysed.
-berlaNetwork with default to loading a sample dataset from /samples/Contact1.csv to ensure networkx and matplotlib are working correctly. Once it is working open the file in an editor and modify the line in the file to read `demo_mode = False`
+
+berlaNetwork will default to loading a sample dataset from /samples/Contact1.csv to ensure networkx and matplotlib are working correctly. Once it is working open the file in an editor and modify the line in the file to read `demo_mode = False`
 
 Then run with run with `python3 berlaJoin.py` , `python3 berlaNetwork.py` or `python3 berlaLocation.py`.
 Converted files will be output to the same directory.\
