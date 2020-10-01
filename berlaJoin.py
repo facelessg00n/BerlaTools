@@ -1,13 +1,15 @@
-###################
-# imports data from CSV files output from BERLA iVE
-# Outputs files for contact, calls and SMS data
-# Device name and details added to contact, call and SMS files
-# for easier analysis
-# timestamps normalised
-####################
+"""
+facelessg00n 2020
+Made in Australia
 
-# Formatted with Black
+Imports data from CSV files output from BERLA iVE
+Outputs files for contact, calls and SMS data
+Device name and details added to contact, call and SMS files
+for easier analysis
+timestamps normalised
 
+Formatted with Black
+"""
 
 import os
 import pandas as pd
