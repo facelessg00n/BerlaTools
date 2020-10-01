@@ -7,6 +7,8 @@ Also outputs a second set of CSV files with blank values dropped i.e only events
 timestamp are shown.
 
 Time format is compatible with software such as IBM i2 and ESRI Arc GIS
+
+Formatted with Black
 """
 
 # TODO - Work in progress. Needs some more testing.
@@ -83,6 +85,31 @@ try:
         errors="ignore",
         format="%m/%d/%Y %I:%M:%S.%f %p",
     )
+    eventPD = eventPD[
+        [
+            "Action",
+            "Orig_Timestamp",
+            "DateTime",
+            "EventIdentifier",
+            "EventType",
+            "HideTimeStamp",
+            "Runtime",
+            "HideRuntime",
+            "FlagsString",
+            "Latitude",
+            "Longitude",
+            "strAccuracy",
+            "UniqueString",
+            "TimestampType",
+            "TimestampConfidence",
+            "TimestampConfidenceString",
+            "NetOffset",
+            "NetOffsetDisplayString",
+            "OffsetsAppliedDisplayString",
+            "OffsetApplied",
+        ]
+    ]
+
     # Generate second dataframe with only points with time data
     eventTimePD = eventPD.copy()
     eventTimePD.dropna(subset=["DateTime"], inplace=True)
