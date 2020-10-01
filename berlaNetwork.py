@@ -28,7 +28,7 @@ filters_on = True
 save_image = False
 
 # Draw clean chart with only common entities
-simple_chart = False
+simple_chart = True
 
 
 # Data to ignore
