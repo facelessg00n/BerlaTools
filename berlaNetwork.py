@@ -33,6 +33,7 @@ simple_chart = True
 
 # Data to ignore
 # Common phone numbers
+# TODO - Fix this and make sure column is ints or stings to match this
 ignoreNumbers = [
     "101",
     "000",
@@ -49,6 +50,7 @@ ignoreNumbers = [
     "555",
     "321",
     "NaN",
+    101,
 ]
 
 
