@@ -12,11 +12,16 @@ Python tools to analyse data from Berla iVe extracts in CSV format.
 #
 ## Dependencies
 Built and tested on python 3.8 but other versions of 3 should be fine. 
+
+*All dependencies can be installed individually as shown below, or all at once by navigating to the BerlaTools-master directory and then running
+
+`pip3 install -r requirements.txt` 
+
 #### Requires **PANDAS** and **TQDM** to be installed.
 
 https://pandas.pydata.org
 
-`pip3 install tqdm`
+`pip3 install pandas`
 
 https://github.com/tqdm/tqdm
 
