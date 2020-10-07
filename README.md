@@ -5,7 +5,7 @@ Work in progress.\
 Python tools to analyse data from Berla iVe extracts in CSV format.
 #
 1. ### **berlaJoin** - brings in device friendly name and details to contacts, SMS and call CSV's so you dont have to look up MAC addresses etc. Also normalises timestamps allowing easier analysis with other software.
-2. ### **berlaLocation** - Corrects the issue with the inconsistent time format which Berla uses and convets times to a fomrat accepted by other analysis programs such as ERRI ArcGIS or IBM i2. Converted times are located in a column called DateTime. Origonal timestamp also included for comparison.
+2. ### **berlaLocation** - Corrects the issue with the inconsistent time format which Berla uses and converts times to a format accepted by other analysis programs such as ERRI ArcGIS or IBM i2. Converted times are located in a column called DateTime. Original timestamp also included for comparison.
 
 3. ### **berlaNetwork** - Work in progress. Utilises networkx and pandas to analyse common numbers between paired devices and generate a visualisation.
 ![Sample](samples/sample.png)
